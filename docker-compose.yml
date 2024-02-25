@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  # Servicio para la aplicación Node.js
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  # Servicio para la base de datos PostgreSQL
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+
+  # Servicio para pgAdmin (opcional)
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: tu_correo
+      PGADMIN_DEFAULT_PASSWORD: tu_contraseña
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
