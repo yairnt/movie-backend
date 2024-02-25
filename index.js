@@ -1,26 +1,36 @@
-// index.js
 const express = require('express');
-const bodyParser = require('body-parser');
+const multer = require('multer');
+const path = require('path');
 const pool = require('./db');
-
 const app = express();
-const port = 3000;
 
-app.use(bodyParser.json());
 
-// Ruta para cargar películas
-app.post('/cargar-pelicula', async (req, res) => {
-  const { titulo, imagen } = req.body;
-    console.log('cargando peli', titulo, imagen)
-  try {
-    const result = await pool.query('INSERT INTO peliculas (titulo, imagen) VALUES ($1, $2) RETURNING *', [titulo, imagen]);
-    res.json(result.rows[0]);
-  } catch (error) {
-    console.error('Error al insertar película:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+const storage = multer.diskStorage({
+  destination: './images',
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   }
 });
 
-app.listen(port, () => {
-  console.log(`Servidor API escuchando en http://localhost:${port}`);
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('image'), async (req, res) => {
+  try {
+    const imageUrl = `/images/${req.file.filename}`;
+    const { titulo } = req.body;
+    
+    const result = await pool.query('INSERT INTO peliculas (titulo, imagen) VALUES ($1, $2) RETURNING *', [titulo, imageUrl]);
+    console.log('result', result)
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al cargar la imagen' });
+  }
+});
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
+  console.log(__dirname + '/images');
 });
