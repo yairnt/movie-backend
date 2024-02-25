@@ -16,6 +16,22 @@ const upload = multer({ storage });
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+app.get('/getImages', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT titulo, imagen FROM peliculas');
+  
+      const imagesData = result.rows.map(row => ({
+        imageUrl: row.imagen,
+        title: row.titulo
+      }));
+  
+      res.json(imagesData);
+    } catch (error) {
+      console.error('Error al obtener las imágenes desde la base de datos:', error);
+      res.status(500).send('Error interno del servidor');
+    }
+  });
+
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
     const imageUrl = `/images/${req.file.filename}`;
