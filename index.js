@@ -6,13 +6,15 @@ const app = express();
 
 
 const storage = multer.diskStorage({
-  destination: './images',
+  destination: '/usr/src/app/images',
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
   }
 });
 
 const upload = multer({ storage });
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
