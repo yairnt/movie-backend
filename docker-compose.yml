@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: sh -c "db-migrate up && npm start"
     ports:
       - "3000:3000"  # Mapea el puerto 3000 del host al puerto 3000 del contenedor
     volumes:
@@ -18,7 +19,5 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: database
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"

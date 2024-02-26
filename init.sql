@@ -1,5 +1,5 @@
-CREATE TABLE peliculas (
+CREATE TABLE movies (
   id SERIAL PRIMARY KEY,
-  titulo VARCHAR(255),
-  imagen TEXT
+  title VARCHAR(255),
+  image TEXT
 );

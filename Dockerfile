@@ -7,6 +7,10 @@ WORKDIR /usr/src/app
 # Copia los archivos de la aplicación
 COPY package*.json ./
 
+# Instalar db-migrate y dependencias
+RUN npm install -g db-migrate
+RUN npm install --save db-migrate-pg
+
 # Instala las dependencias
 RUN npm install
 

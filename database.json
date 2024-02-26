@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": "db",
+    "port": 5432,
+    "user": "user",
+    "password": "password",
+    "database": "database",
+    "schema": "public",
+    "ssl": false
+  },
+  "production": {
+    "driver": "pg",
+    "host": "",
+    "port": 5432,
+    "user": "",
+    "password": "",
+    "database": "",
+    "schema": "",
+    "ssl": false
+  }
+}

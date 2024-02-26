@@ -14,17 +14,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-app.get('/getImages', async (req, res) => {
+app.get('/images', async (req, res) => {
     try {
-      const result = await pool.query('SELECT titulo, imagen FROM peliculas');
+      const result = await pool.query('SELECT title, image FROM movies');
   
       const imagesData = result.rows.map(row => ({
-        imageUrl: row.imagen,
-        title: row.titulo
+        imageUrl: row.image,
+        title: row.title
       }));
-  
+
       res.json(imagesData);
     } catch (error) {
       console.error('Error al obtener las imágenes desde la base de datos:', error);
@@ -35,9 +33,9 @@ app.get('/getImages', async (req, res) => {
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
     const imageUrl = `/images/${req.file.filename}`;
-    const { titulo } = req.body;
+    const { title } = req.body;
     
-    const result = await pool.query('INSERT INTO peliculas (titulo, imagen) VALUES ($1, $2) RETURNING *', [titulo, imageUrl]);
+    const result = await pool.query('INSERT INTO movies (title, image) VALUES ($1, $2) RETURNING *', [title, imageUrl]);
     console.log('result', result)
     res.json(result.rows[0]);
   } catch (error) {
