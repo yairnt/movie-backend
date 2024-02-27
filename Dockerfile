@@ -17,11 +17,12 @@ COPY . .
 # Copia el script de inicio
 COPY start.sh .
 
+# Da permisos de ejecución al script de inicio
+RUN chmod +x start.sh
+
 # Establece el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Da permisos de ejecución al script de inicio
-RUN chmod +x start.sh
 
 # Expone el puerto 3000
 EXPOSE 8000
