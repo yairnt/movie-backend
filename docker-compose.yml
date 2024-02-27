@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     command: sh -c "db-migrate up && npm start"
     ports:
-      - "3000:3000"  # Mapea el puerto 3000 del host al puerto 3000 del contenedor
+      - "3000:8000"  # Mapea el puerto 3000 del host al puerto 3000 del contenedor
     volumes:
       - ./images:/app/images
     depends_on:

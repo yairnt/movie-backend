@@ -1,4 +1,5 @@
 # ...
+FROM node:14
 
 # Copia los archivos de la aplicación
 COPY package*.json ./
