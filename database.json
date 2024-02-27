@@ -1,11 +1,11 @@
 {
   "dev": {
     "driver": "pg",
-    "host": "db",
+    "host": "dpg-cnf3m9779t8c73cebmeg-a",
     "port": 5432,
-    "user": "user",
-    "password": "password",
-    "database": "database",
+    "user": "movies_db_postgres_user",
+    "password": "LFib5cUEE9Cug2z7r3dE8RunHUMSUIGh",
+    "database": "movies_db_postgres",
     "schema": "public",
     "ssl": false
   },
