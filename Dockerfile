@@ -8,11 +8,14 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Instalar db-migrate y dependencias
-# Run database migrations
-RUN npm install -g db-migrate db-migrate-pg && db-migrate up
+RUN npm install -g db-migrate
+RUN npm install --save db-migrate-pg
 
 # Instala las dependencias
 RUN npm install
+
+# Ejecuta las migraciones
+RUN db-migrate up
 
 # Copia el resto de la aplicación
 COPY . .
