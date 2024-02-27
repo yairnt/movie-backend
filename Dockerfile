@@ -1,8 +1,4 @@
-# Usa la imagen oficial de Node.js
-FROM node:14
-
-# Establece el directorio de trabajo
-WORKDIR /usr/src/app
+# ...
 
 # Copia los archivos de la aplicación
 COPY package*.json ./
@@ -14,15 +10,20 @@ RUN npm install --save db-migrate-pg
 # Instala las dependencias
 RUN npm install
 
-# Ejecuta las migraciones
-RUN db-migrate up
-
 # Copia el resto de la aplicación
 COPY . .
 
-ENV PORT=8000
+# Copia el script de inicio
+COPY start.sh .
+
+# Establece el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Da permisos de ejecución al script de inicio
+RUN chmod +x start.sh
+
 # Expone el puerto 3000
 EXPOSE 8000
 
 # Comando para iniciar la aplicación
-CMD ["node", "index.js"]
+CMD ["./start.sh"]
