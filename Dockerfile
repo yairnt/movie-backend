@@ -17,8 +17,9 @@ RUN npm install
 # Copia el resto de la aplicación
 COPY . .
 
+ENV PORT=8000
 # Expone el puerto 3000
-EXPOSE 3000
+EXPOSE 8000
 
 # Comando para iniciar la aplicación
 CMD ["node", "index.js"]
