@@ -1,5 +1,8 @@
-# ...
+# Usa la imagen oficial de Node.js
 FROM node:14
+
+# Establece el directorio de trabajo
+WORKDIR /usr/src/app
 
 # Copia los archivos de la aplicación
 COPY package*.json ./
@@ -19,10 +22,6 @@ COPY start.sh .
 
 # Da permisos de ejecución al script de inicio
 RUN chmod +x start.sh
-
-# Establece el directorio de trabajo
-WORKDIR /usr/src/app
-
 
 # Expone el puerto 3000
 EXPOSE 8000
