@@ -2,7 +2,11 @@
 
 This is a Movie Play Website created by Yair Segura
 
-This backend is already deployed on [Render](https://www.render.com/), but if you want to run locally, follow the instructions.
+
+
+- This backend is already deployed on [Render](https://www.render.com/), but if you want to run locally, follow the instructions.
+
+- The link to the frontend repo is: https://github.com/yairnt/challenge-liteflix?tab=readme-ov-file
 
 ## Prerequisites
 
